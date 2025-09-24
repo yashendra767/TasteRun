@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-// import 'di/injection.dart' as di;
-// import 'ui/screens/restaurant_list_screen.dart';
-// import 'blocs/restaurants/restaurant_bloc.dart';
+import 'di/injection.dart' as di;
+import 'ui/screens/restaurant_list_screen.dart';
+import 'package:food_delivery_app/blocs/restaurant/restaurant_bloc.dart';
 import 'package:get_it/get_it.dart';
 
 void main() async {
@@ -26,11 +26,16 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
+
         debugShowCheckedModeBanner: false,
         title: 'Foodie',
         theme: ThemeData(
           useMaterial3: true,
-          colorSchemeSeed: Colors.deepPurple,
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: const Color(0xFF6C63FF),
+            brightness: Brightness.light,
+          ),
+          scaffoldBackgroundColor: const Color(0xFFF7F7FB),
         ),
         home: const RestaurantListScreen(),
       ),

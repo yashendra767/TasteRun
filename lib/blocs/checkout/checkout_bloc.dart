@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../blocs/restaurants/restaurant_bloc.dart';
-import '../../blocs/restaurants/restaurant_state.dart';
-import '../../blocs/restaurants/restaurant_event.dart';
+import 'package:food_delivery_app/blocs/restaurant/restaurant_bloc.dart';
+import 'package:food_delivery_app/blocs/restaurant/restaurant_state.dart';
+import 'package:food_delivery_app/blocs/restaurant/restaurant_event.dart';
 import '../../data/models/restaurant.dart';
 import 'menu_screen.dart';
 
