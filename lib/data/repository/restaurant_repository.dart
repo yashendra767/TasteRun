@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:food_delivery_app/domain/repository/restaurant_repository_interface.dart';
 import '../models/restaurant.dart';
 import '../models/menu_item.dart';
+import 'package:food_delivery_app/core/errors/failures.dart';
 
 class FakeRestaurantRepository implements IRestaurantRepository {
   final Random _random = Random();
@@ -28,8 +29,8 @@ class FakeRestaurantRepository implements IRestaurantRepository {
     ];
 
     return [
-      Restaurant(id: 'r1', name: 'Slice & Dice', address: '12 Baker St', rating: 4.6, menuPreview: menu1),
-      Restaurant(id: 'r2', name: 'Curry House', address: '45 Spice Ave', rating: 4.4, menuPreview: menu2),
+      Restaurant(id: 'r1', name: 'Slice & Dice', address: '12 Baker St', rating: 4.6, menuPreview: menu1, cuisine: 'Italian'),
+      Restaurant(id: 'r2', name: 'Curry House', address: '45 Spice Ave', rating: 4.4, menuPreview: menu2, cuisine: 'Indian'),
     ];
   }
 

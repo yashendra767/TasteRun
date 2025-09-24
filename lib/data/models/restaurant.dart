@@ -6,6 +6,7 @@ class Restaurant extends Equatable {
   final String name;
   final String address;
   final double rating;
+  final String cuisine;
   final List<MenuItem> menuPreview;
 
   const Restaurant({
@@ -13,6 +14,7 @@ class Restaurant extends Equatable {
     required this.name,
     required this.address,
     required this.rating,
+    required this.cuisine,
     required this.menuPreview,
   });
 

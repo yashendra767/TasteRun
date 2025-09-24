@@ -1,38 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'di/injection.dart' as di;
-import 'ui/screens/restaurant_list_screen.dart';
-import 'package:food_delivery_app/blocs/restaurant/restaurant_bloc.dart';
 import 'package:get_it/get_it.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await di.init();
-  runApp(const MyApp());
+import 'blocs/cart/cart_cubit.dart';
+import 'data/repository/restaurant_repository.dart';
+import 'domain/repository/restaurant_repository_interface.dart';
+import 'ui/screens/restaurant_list_screen.dart';
+
+void main() {
+  GetIt.I.registerLazySingleton<IRestaurantRepository>(
+        () => FakeRestaurantRepository(),
+  );
+
+  runApp(const FoodDeliveryApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class FoodDeliveryApp extends StatelessWidget {
+  const FoodDeliveryApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    final getIt = GetIt.instance;
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<RestaurantBloc>(
-          create: (_) => getIt<RestaurantBloc>()..add(RestaurantFetchRequested()),
-        ),
-        BlocProvider(
-          create: (_) => getIt(),
-        ),
-      ],
+    return BlocProvider(
+      create: (_) => CartCubit(),
       child: MaterialApp(
-
-        debugShowCheckedModeBanner: false,
-        title: 'Foodie',
+        title: 'Food Delivery App',
         theme: ThemeData(
           useMaterial3: true,
           colorScheme: ColorScheme.fromSeed(
-            seedColor: const Color(0xFF6C63FF),
+            seedColor: const Color(0xFF6C63FF), // lavender-indigo
             brightness: Brightness.light,
           ),
           scaffoldBackgroundColor: const Color(0xFFF7F7FB),

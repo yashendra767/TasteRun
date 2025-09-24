@@ -4,7 +4,7 @@ import 'package:food_delivery_app/blocs/restaurant/restaurant_bloc.dart';
 import 'package:food_delivery_app/blocs/restaurant/restaurant_state.dart';
 import 'package:food_delivery_app/blocs/restaurant/restaurant_event.dart';
 import '../../data/models/restaurant.dart';
-import 'menu_screen.dart';
+import 'package:food_delivery_app/ui/screens/menu_screen.dart';
 
 class RestaurantListScreen extends StatelessWidget {
   const RestaurantListScreen({super.key});
@@ -50,7 +50,10 @@ class RestaurantListScreen extends StatelessWidget {
         label: const Text('Cart'),
         icon: const Icon(Icons.shopping_cart),
         onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (_) => const MenuScreen.openCart()));
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => MenuScreen.openCart()),
+          );
         },
       ),
     );

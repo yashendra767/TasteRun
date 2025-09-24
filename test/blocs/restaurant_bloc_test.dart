@@ -27,7 +27,7 @@ void main() {
     'emits [loading, success] when fetch succeeds',
     build: () {
       when(mockRepo.fetchRestaurants()).thenAnswer((_) async => [
-        Restaurant(id: 'r1', name: 'r', address: 'a', rating: 4.5, menuPreview: [MenuItem(id: 'm1', name: 'n', description: 'd', price: 1.0, imageUrl: '')])
+        Restaurant(id: 'r1', name: 'r', cuisine: 'i', address: 'a', rating: 4.5, menuPreview: [MenuItem(id: 'm1', name: 'n', description: 'd', price: 1.0, imageUrl: '',)])
       ]);
       return bloc;
     },
