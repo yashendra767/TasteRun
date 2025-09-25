@@ -138,14 +138,27 @@ class _MenuItemCard extends StatelessWidget {
         padding: const EdgeInsets.all(14),
         child: Row(
           children: [
-            Container(
-              width: 72,
-              height: 72,
-              decoration: BoxDecoration(
-                color: Colors.purple.shade50,
-                borderRadius: BorderRadius.circular(12),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: item.imageUrl.isNotEmpty
+                  ? Image.asset(
+                item.imageUrl,
+                width: 72,
+                height: 72,
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) => Container(
+                  width: 72,
+                  height: 72,
+                  color: Colors.grey.shade200,
+                  child: const Icon(Icons.fastfood, color: Colors.deepPurple, size: 32,),
+                ),
+              )
+                  : Container(
+                width: 72,
+                height: 72,
+                color: Colors.grey.shade200,
+                child: const Icon(Icons.fastfood, color: Colors.deepPurple, size: 32,),
               ),
-              child: const Icon(Icons.fastfood, size: 32, color: Colors.deepPurple),
             ),
             const SizedBox(width: 12),
             // Details
@@ -203,7 +216,7 @@ class _MenuItemCard extends StatelessWidget {
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
                       decoration: BoxDecoration(
-                        color: Colors.grey.shade100,
+                        color: Colors.transparent,
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Text(

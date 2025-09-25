@@ -18,14 +18,14 @@ class FakeRestaurantRepository implements IRestaurantRepository {
     if (_random.nextInt(10) < 2) {
       throw NetworkFailure('Failed to fetch restaurants');
     }
-    // small sample
+    // dummy data
     final menu1 = [
-      MenuItem(id: 'm1', name: 'Margherita Pizza', description: 'Classic', price: 6.99, imageUrl: ''),
-      MenuItem(id: 'm2', name: 'Veg Burger', description: 'With fries', price: 4.50, imageUrl: ''),
+      MenuItem(id: 'm1', name: 'Margherita Pizza', description: 'Classic', price: 6.99, imageUrl: 'assets/images/pizza.jpg'),
+      MenuItem(id: 'm2', name: 'Veg Burger', description: 'With fries', price: 4.50, imageUrl: 'assets/images/burger.jpg'),
     ];
     final menu2 = [
-      MenuItem(id: 'm3', name: 'Butter Chicken', description: 'Creamy', price: 8.50, imageUrl: ''),
-      MenuItem(id: 'm4', name: 'Naan', description: 'Buttery', price: 1.50, imageUrl: ''),
+      MenuItem(id: 'm3', name: 'Butter Paneer', description: 'Creamy', price: 8.50, imageUrl: 'assets/images/butter.jpg'),
+      MenuItem(id: 'm4', name: 'Naan', description: 'Buttery', price: 1.50, imageUrl: 'assets/images/Naan.jpg'),
     ];
 
     return [
@@ -40,16 +40,15 @@ class FakeRestaurantRepository implements IRestaurantRepository {
     if (_random.nextInt(10) < 2) {
       throw NetworkFailure('Failed to fetch menu');
     }
-    // return based on ID
     if (restaurantId == 'r1') {
       return [
-        MenuItem(id: 'm1', name: 'Margherita Pizza', description: 'Classic', price: 6.99, imageUrl: ''),
-        MenuItem(id: 'm5', name: 'Pepperoni', description: 'Spicy', price: 7.99, imageUrl: ''),
+        MenuItem(id: 'm1', name: 'Margherita Pizza', description: 'Classic', price: 6.99, imageUrl: 'assets/images/pizza.jpg'),
+        MenuItem(id: 'm2', name: 'Veg Burger', description: 'With fried', price: 4.50, imageUrl: 'assets/images/burger.jpg'),
       ];
     } else {
       return [
-        MenuItem(id: 'm3', name: 'Butter Chicken', description: 'Creamy', price: 8.50, imageUrl: ''),
-        MenuItem(id: 'm4', name: 'Naan', description: 'Buttery', price: 1.50, imageUrl: ''),
+        MenuItem(id: 'm3', name: 'Butter Paneer', description: 'Creamy', price: 8.50, imageUrl: 'assets/images/butter.jpg'),
+        MenuItem(id: 'm4', name: 'Naan', description: 'Buttery', price: 1.50, imageUrl: 'assets/images/Naan.jpg'),
       ];
     }
   }
@@ -57,11 +56,11 @@ class FakeRestaurantRepository implements IRestaurantRepository {
   @override
   Future<String> placeOrder({required String restaurantId, required List<Map<String, dynamic>> items, required double total}) async {
     await Future.delayed(const Duration(milliseconds: 1200));
-    // Simulate occasional failure
     if (_random.nextInt(10) < 2) {
+      // dummy gateway error
       throw ServerFailure('Payment gateway error');
     }
-    // Return fake order id
+    // dummy order id
     return 'ORD-${DateTime.now().millisecondsSinceEpoch % 100000}';
   }
 }
