@@ -26,8 +26,9 @@ class FoodDeliveryApp extends StatelessWidget {
         title: 'Food Delivery App',
         theme: ThemeData(
           useMaterial3: true,
+          fontFamily: 'MyFontInter',
           colorScheme: ColorScheme.fromSeed(
-            seedColor: const Color(0xFF6C63FF), // lavender-indigo
+            seedColor: const Color(0xFF6C63FF),
             brightness: Brightness.light,
           ),
           scaffoldBackgroundColor: const Color(0xFFF7F7FB),

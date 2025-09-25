@@ -25,7 +25,8 @@ class _RestaurantListScreenState extends State<RestaurantListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Restaurants")),
+      appBar: AppBar(title: const Text("Restaurants", style: TextStyle(shadows: [Shadow(color: Colors.black, blurRadius: 2.0)]),),
+      centerTitle: true,),
       body: FutureBuilder<List<Restaurant>>(
         future: _futureRestaurants,
         builder: (context, snapshot) {
@@ -68,12 +69,48 @@ class _RestaurantListScreenState extends State<RestaurantListScreen> {
                   ),
                   elevation: 3,
                   child: ListTile(
-                    contentPadding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                    title: Text(r.name,
-                        style: Theme.of(context).textTheme.titleMedium),
-                    subtitle: Text(r.cuisine),
-                    trailing: const Icon(Icons.arrow_forward_ios, size: 18),
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                    title: Text(
+                      r.name,
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.w600,
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    subtitle: Text(
+                      r.cuisine,
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        color: Colors.grey[600],
+                      ),
+                    ),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                          decoration: BoxDecoration(
+                            color: Colors.amber.shade50,
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(Icons.star, color: Colors.amber.shade600, size: 16),
+                              const SizedBox(width: 4),
+                              Text(
+                                r.rating.toStringAsFixed(1),
+                                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.amber.shade600,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        const Icon(Icons.arrow_forward_ios, size: 18),
+                      ],
+                    ),
                     onTap: () {
                       Navigator.push(
                         context,

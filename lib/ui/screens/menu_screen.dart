@@ -32,7 +32,7 @@ class _MenuScreenState extends State<MenuScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.restaurant.name),
+        title: Text(widget.restaurant.name, style: TextStyle(shadows: [Shadow(color: Colors.black, blurRadius: 2.0)]),),
         actions: [
           IconButton(
             icon: const Icon(Icons.shopping_cart),
