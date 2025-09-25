@@ -23,6 +23,7 @@ class FoodDeliveryApp extends StatelessWidget {
     return BlocProvider(
       create: (_) => CartCubit(),
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Food Delivery App',
         theme: ThemeData(
           useMaterial3: true,
