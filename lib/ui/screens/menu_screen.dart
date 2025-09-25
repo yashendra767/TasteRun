@@ -34,6 +34,7 @@ class _MenuScreenState extends State<MenuScreen> {
           widget.restaurant.name,
           style: const TextStyle(shadows: [Shadow(color: Colors.black, blurRadius: 2.0)]),
         ),
+        centerTitle: true,
         actions: [
           BlocBuilder<CartCubit, CartState>(
             builder: (context, cartState) {

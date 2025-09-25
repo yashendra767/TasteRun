@@ -43,7 +43,7 @@ class FakeRestaurantRepository implements IRestaurantRepository {
     if (restaurantId == 'r1') {
       return [
         MenuItem(id: 'm1', name: 'Margherita Pizza', description: 'Classic', price: 6.99, imageUrl: 'assets/images/pizza.jpg'),
-        MenuItem(id: 'm2', name: 'Veg Burger', description: 'With fried', price: 4.50, imageUrl: 'assets/images/burger.jpg'),
+        MenuItem(id: 'm2', name: 'Veg Burger', description: 'With fries', price: 4.50, imageUrl: 'assets/images/burger.jpg'),
       ];
     } else {
       return [
