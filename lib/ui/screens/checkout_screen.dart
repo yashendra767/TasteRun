@@ -48,29 +48,86 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final total = context.read<CartCubit>().state.total;
+    final cart = context.watch<CartCubit>().state;
+    final primaryColor = Theme.of(context).colorScheme.primary;
+
     return Scaffold(
-      appBar: AppBar(title: const Text("Checkout")),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            Text("Total to pay: \$${total.toStringAsFixed(2)}",
-                style: Theme.of(context).textTheme.headlineSmall),
-            const SizedBox(height: 24),
-            if (_error != null) ...[
-              Text(_error!,
-                  style: const TextStyle(color: Colors.redAccent)),
-              const SizedBox(height: 12),
-            ],
-            _loading
-                ? const CircularProgressIndicator()
-                : ElevatedButton(
-              onPressed: _placeOrder,
-              child: const Text("Place Order"),
-            )
-          ],
+      appBar: AppBar(
+        title: const Text(
+          "Checkout",
+          style: TextStyle(shadows: [Shadow(color: Colors.black, blurRadius: 2.0)]),
         ),
+        centerTitle: true,
+      ),
+      body: Stack(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              children: [
+                Card(
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                  elevation: 4,
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      children: [
+                        const Text("Order Summary", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                        const SizedBox(height: 12),
+                        ...cart.items.map((ci) => Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 6),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("${ci.item.name} x ${ci.qty}"),
+                              Text("\$${(ci.item.price * ci.qty).toStringAsFixed(2)}",
+                                  style: const TextStyle(fontWeight: FontWeight.bold)),
+                            ],
+                          ),
+                        )),
+                        const Divider(height: 24, thickness: 1),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text("Total",
+                                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                            Text("\$${cart.total.toStringAsFixed(2)}",
+                                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: primaryColor)),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 24),
+                if (_error != null) ...[
+                  Text(_error!, style: const TextStyle(color: Colors.redAccent)),
+                  const SizedBox(height: 12),
+                ],
+                SizedBox(
+                  width: double.infinity,
+                  height: 50,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: primaryColor,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                    ),
+                    onPressed: _loading ? null : _placeOrder,
+                    child: const Text(
+                      "Place Order",
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          if (_loading)
+            Container(
+              color: Colors.black45,
+              child: const Center(child: CircularProgressIndicator()),
+            ),
+        ],
       ),
     );
   }
