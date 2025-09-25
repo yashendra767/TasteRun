@@ -5,6 +5,7 @@ import 'package:food_delivery_app/blocs/restaurant/restaurant_state.dart';
 import 'package:food_delivery_app/blocs/restaurant/restaurant_event.dart';
 import '../../data/models/restaurant.dart';
 import 'package:food_delivery_app/ui/screens/menu_screen.dart';
+import 'package:food_delivery_app/ui/screens/cart_screen.dart';
 
 class RestaurantListScreen extends StatelessWidget {
   const RestaurantListScreen({super.key});
@@ -34,8 +35,10 @@ class RestaurantListScreen extends StatelessWidget {
                     return _RestaurantCard(
                       restaurant: r,
                       onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (_) => MenuScreen(restaurant: r)));
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (_) => MenuScreen(restaurant: r)),
+                        );
                       },
                     );
                   },
@@ -52,7 +55,7 @@ class RestaurantListScreen extends StatelessWidget {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (_) => MenuScreen.openCart()),
+            MaterialPageRoute(builder: (_) => const CartScreen()),
           );
         },
       ),
@@ -75,11 +78,20 @@ class _RestaurantCard extends StatelessWidget {
         decoration: BoxDecoration(
           gradient: LinearGradient(colors: [Colors.white, Colors.grey.shade50]),
           borderRadius: BorderRadius.circular(12),
-          boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 6, offset: Offset(0,4))],
+          boxShadow: [
+            BoxShadow(color: Colors.black12, blurRadius: 6, offset: const Offset(0, 4))
+          ],
         ),
         child: Row(
           children: [
-            Container(width: 72, height: 72, decoration: BoxDecoration(color: Colors.grey[300], borderRadius: BorderRadius.circular(8))),
+            Container(
+              width: 72,
+              height: 72,
+              decoration: BoxDecoration(
+                color: Colors.grey[300],
+                borderRadius: BorderRadius.circular(8),
+              ),
+            ),
             const SizedBox(width: 12),
             Expanded(
               child: Column(
@@ -89,7 +101,13 @@ class _RestaurantCard extends StatelessWidget {
                   const SizedBox(height: 6),
                   Text(restaurant.address, style: Theme.of(context).textTheme.bodySmall),
                   const SizedBox(height: 6),
-                  Row(children: [Icon(Icons.star,size:14,color:Colors.amber), Text('${restaurant.rating}')]),
+                  Row(
+                    children: [
+                      const Icon(Icons.star, size: 14, color: Colors.amber),
+                      const SizedBox(width: 4),
+                      Text('${restaurant.rating}'),
+                    ],
+                  ),
                 ],
               ),
             )

@@ -12,8 +12,6 @@ class MenuScreen extends StatefulWidget {
   final Restaurant restaurant;
   const MenuScreen({super.key, required this.restaurant});
 
-  static Widget openCart() => const CartScreen();
-
   @override
   State<MenuScreen> createState() => _MenuScreenState();
 }
@@ -32,14 +30,49 @@ class _MenuScreenState extends State<MenuScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.restaurant.name, style: TextStyle(shadows: [Shadow(color: Colors.black, blurRadius: 2.0)]),),
+        title: Text(
+          widget.restaurant.name,
+          style: const TextStyle(shadows: [Shadow(color: Colors.black, blurRadius: 2.0)]),
+        ),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.shopping_cart),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => const CartScreen()),
+          BlocBuilder<CartCubit, CartState>(
+            builder: (context, cartState) {
+              final totalQty = cartState.items.fold<int>(0, (s, ci) => s + ci.qty);
+              return Stack(
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.shopping_cart),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => const CartScreen()),
+                      );
+                    },
+                  ),
+                  if (totalQty > 0)
+                    Positioned(
+                      right: 6,
+                      top: 6,
+                      child: Container(
+                        padding: const EdgeInsets.all(5),
+                        decoration: const BoxDecoration(
+                          color: Colors.red,
+                          shape: BoxShape.circle,
+                        ),
+                        constraints: const BoxConstraints(minWidth: 20, minHeight: 20),
+                        child: Center(
+                          child: Text(
+                            totalQty.toString(),
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 11,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                ],
               );
             },
           ),
@@ -51,9 +84,7 @@ class _MenuScreenState extends State<MenuScreen> {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
-            final msg = snapshot.error is Failure
-                ? (snapshot.error as Failure).message
-                : 'Unexpected error';
+            final msg = snapshot.error is Failure ? (snapshot.error as Failure).message : 'Unexpected error';
             return Center(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -66,8 +97,7 @@ class _MenuScreenState extends State<MenuScreen> {
                     onPressed: () {
                       setState(() {
                         final repo = GetIt.instance<IRestaurantRepository>();
-                        _futureMenu =
-                            repo.fetchMenuForRestaurant(widget.restaurant.id);
+                        _futureMenu = repo.fetchMenuForRestaurant(widget.restaurant.id);
                       });
                     },
                   )
@@ -76,6 +106,9 @@ class _MenuScreenState extends State<MenuScreen> {
             );
           } else {
             final menu = snapshot.data!;
+            if (menu.isEmpty) {
+              return const Center(child: Text('No items found'));
+            }
             return ListView.separated(
               padding: const EdgeInsets.all(16),
               itemCount: menu.length,
@@ -94,7 +127,7 @@ class _MenuScreenState extends State<MenuScreen> {
 
 class _MenuItemCard extends StatelessWidget {
   final MenuItem item;
-  const _MenuItemCard({required this.item});
+  const _MenuItemCard({required this.item, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -102,7 +135,7 @@ class _MenuItemCard extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       elevation: 3,
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(14),
         child: Row(
           children: [
             Container(
@@ -115,34 +148,79 @@ class _MenuItemCard extends StatelessWidget {
               child: const Icon(Icons.fastfood, size: 32, color: Colors.deepPurple),
             ),
             const SizedBox(width: 12),
+            // Details
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(item.name, style: Theme.of(context).textTheme.titleMedium),
-                  const SizedBox(height: 4),
-                  Text(item.description,
-                      style: Theme.of(context).textTheme.bodySmall),
+                  const SizedBox(height: 6),
+                  if ((item.description).isNotEmpty)
+                    Text(item.description, style: Theme.of(context).textTheme.bodySmall),
                   const SizedBox(height: 8),
-                  Text("\$${item.price.toStringAsFixed(2)}",
-                      style: TextStyle(
-                          color: Theme.of(context).colorScheme.primary,
-                          fontWeight: FontWeight.bold)),
+                  Text(
+                    "\$${item.price.toStringAsFixed(2)}",
+                    style: TextStyle(color: Theme.of(context).colorScheme.primary, fontWeight: FontWeight.bold),
+                  ),
                 ],
               ),
             ),
-            IconButton(
-              icon: const Icon(Icons.add_circle, color: Colors.deepPurple),
-              onPressed: () {
-                context.read<CartCubit>().addItem(item);
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text('${item.name} added to cart'),
-                    duration: const Duration(seconds: 1),
-                  ),
+            BlocBuilder<CartCubit, CartState>(
+              builder: (context, cartState) {
+                final idx = cartState.items.indexWhere((ci) => ci.item.id == item.id);
+                final qty = idx >= 0 ? cartState.items[idx].qty : 0;
+                if (qty == 0) {
+                  return IconButton(
+                    icon: const Icon(Icons.add_circle, color: Colors.deepPurple),
+                    onPressed: () {
+                      context.read<CartCubit>().addItem(item);
+                      ScaffoldMessenger.of(context).removeCurrentSnackBar();
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('${item.name} added to cart'),
+                          duration: const Duration(seconds: 3),
+                          action: SnackBarAction(
+                            label: 'View',
+                            onPressed: () {
+                              Navigator.push(context, MaterialPageRoute(builder: (_) => const CartScreen()));
+                            },
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                }
+
+                return Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    IconButton(
+                      icon: Icon(Icons.remove_circle, color: Colors.red.shade300),
+                      onPressed: () {
+                        context.read<CartCubit>().removeOne(item);
+                      },
+                    ),
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                      decoration: BoxDecoration(
+                        color: Colors.grey.shade100,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Text(
+                        qty.toString(),
+                        style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
+                      ),
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.add_circle, color: Colors.deepPurple),
+                      onPressed: () {
+                        context.read<CartCubit>().addItem(item);
+                      },
+                    ),
+                  ],
                 );
               },
-            )
+            ),
           ],
         ),
       ),
