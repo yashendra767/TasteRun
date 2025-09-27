@@ -57,7 +57,7 @@ class _MenuScreenState extends State<MenuScreen> {
                       child: Container(
                         padding: const EdgeInsets.all(5),
                         decoration: const BoxDecoration(
-                          color: Colors.red,
+                          color: Color(0xFF2457A7),
                           shape: BoxShape.circle,
                         ),
                         constraints: const BoxConstraints(minWidth: 20, minHeight: 20),
@@ -151,14 +151,14 @@ class _MenuItemCard extends StatelessWidget {
                   width: 72,
                   height: 72,
                   color: Colors.grey.shade200,
-                  child: const Icon(Icons.fastfood, color: Colors.deepPurple, size: 32,),
+                  child: const Icon(Icons.fastfood, size: 32,),
                 ),
               )
                   : Container(
                 width: 72,
                 height: 72,
                 color: Colors.grey.shade200,
-                child: const Icon(Icons.fastfood, color: Colors.deepPurple, size: 32,),
+                child: const Icon(Icons.fastfood, size: 32,),
               ),
             ),
             const SizedBox(width: 12),
@@ -185,7 +185,7 @@ class _MenuItemCard extends StatelessWidget {
                 final qty = idx >= 0 ? cartState.items[idx].qty : 0;
                 if (qty == 0) {
                   return IconButton(
-                    icon: const Icon(Icons.add_circle, color: Colors.deepPurple),
+                    icon: Icon(Icons.add_circle, color: Colors.green[400],),
                     onPressed: () {
                       context.read<CartCubit>().addItem(item);
                       ScaffoldMessenger.of(context).removeCurrentSnackBar();
@@ -226,7 +226,7 @@ class _MenuItemCard extends StatelessWidget {
                       ),
                     ),
                     IconButton(
-                      icon: const Icon(Icons.add_circle, color: Colors.deepPurple),
+                      icon: Icon(Icons.add_circle, color: Colors.green[400],),
                       onPressed: () {
                         context.read<CartCubit>().addItem(item);
                       },

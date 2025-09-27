@@ -109,19 +109,19 @@ class _RestaurantListScreenState extends State<RestaurantListScreen> {
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                           decoration: BoxDecoration(
-                            color: Colors.amber.shade50,
+                            color: Colors.green.shade50,
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Icon(Icons.star, color: Colors.amber.shade600, size: 16),
+                              Icon(Icons.star, color: Colors.green.shade600, size: 16),
                               const SizedBox(width: 4),
                               Text(
                                 r.rating.toStringAsFixed(1),
                                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
                                   fontWeight: FontWeight.w600,
-                                  color: Colors.amber.shade600,
+                                  color: Colors.green.shade600,
                                 ),
                               ),
                             ],

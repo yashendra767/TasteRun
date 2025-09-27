@@ -87,7 +87,7 @@ class CartScreen extends StatelessWidget {
                                 _QuantityButton(
                                   icon: Icons.add_circle_outline,
                                   onTap: () => context.read<CartCubit>().addItem(ci.item),
-                                  color: primaryColor,
+                                  color:  Colors.green.shade400,
                                 ),
                               ],
                             ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery_app/config/theme.dart';
 
 class OrderHistoryScreen extends StatelessWidget {
   const OrderHistoryScreen({super.key});
@@ -39,7 +40,7 @@ class OrderHistoryScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(order["restaurant"], style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                  Text(order["restaurant"], style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.textPrimary),),
                   const SizedBox(height: 4),
                   Text("Date: ${order["date"]}", style: const TextStyle(color: Colors.grey)),
                   const SizedBox(height: 4),

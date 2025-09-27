@@ -7,7 +7,6 @@ import 'payment_screen.dart';
 class CheckoutScreen extends StatelessWidget {
   const CheckoutScreen({super.key});
 
-  // 🔹 Generate a fake orderId for now
   String _generateOrderId() {
     final rand = Random().nextInt(999999);
     return "ORD$rand";
@@ -37,7 +36,6 @@ class CheckoutScreen extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            // 🔹 Order summary card
             Card(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(16),
@@ -53,6 +51,11 @@ class CheckoutScreen extends StatelessWidget {
                       TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 12),
+                    if (cart.items.isEmpty)
+                      const Text(
+                        "Your cart is empty.",
+                        style: TextStyle(color: Colors.redAccent),
+                      ),
                     ...cart.items.map(
                           (ci) => Padding(
                         padding: const EdgeInsets.symmetric(vertical: 6),
@@ -104,7 +107,9 @@ class CheckoutScreen extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12)),
                 ),
-                onPressed: () {
+                onPressed: cart.items.isEmpty
+                    ? null // disable button if cart is empty
+                    : () {
                   final orderId = _generateOrderId();
                   Navigator.push(
                     context,

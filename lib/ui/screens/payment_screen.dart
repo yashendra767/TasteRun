@@ -69,6 +69,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                       return null;
                     },
                   ),
+                  SizedBox(height: 8,),
                   TextFormField(
                     controller: _cvvController,
                     decoration: const InputDecoration(labelText: 'CVV'),
@@ -80,6 +81,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                       return null;
                     },
                   ),
+                  SizedBox(height: 8,),
                   TextFormField(
                     controller: _expiryController,
                     decoration: const InputDecoration(labelText: 'Expiry (MM/YY)'),
@@ -157,17 +159,17 @@ class _PaymentScreenState extends State<PaymentScreen> {
             ),
             const SizedBox(height: 24),
             ListTile(
-              leading: const Icon(Icons.payment, color: Colors.deepPurple,),
+              leading: Icon(Icons.monetization_on_outlined, color: primaryColor,),
               title: const Text('UPI'),
               onTap: () => _showPaymentSheet('UPI'),
             ),
             ListTile(
-              leading: const Icon(Icons.credit_card, color: Colors.deepPurple),
+              leading: Icon(Icons.credit_card,color: primaryColor, ),
               title: const Text('Card'),
               onTap: () => _showPaymentSheet('Card'),
             ),
             ListTile(
-              leading: const Icon(Icons.money, color: Colors.deepPurple),
+              leading: Icon(Icons.money,color: primaryColor,),
               title: const Text('Cash on Delivery'),
               onTap: () => _showPaymentSheet('Cash'),
             ),
