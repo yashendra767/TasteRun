@@ -66,7 +66,7 @@ class RestaurantListScreen extends StatelessWidget {
 class _RestaurantCard extends StatelessWidget {
   final Restaurant restaurant;
   final VoidCallback onTap;
-  const _RestaurantCard({required this.restaurant, required this.onTap, super.key});
+  const _RestaurantCard({required this.restaurant, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -120,7 +120,7 @@ class _RestaurantCard extends StatelessWidget {
 
 class _ErrorView extends StatelessWidget {
   final String message;
-  const _ErrorView({required this.message, super.key});
+  const _ErrorView({required this.message});
   @override
   Widget build(BuildContext context) {
     return Center(

@@ -186,7 +186,7 @@ packages:
     source: hosted
     version: "1.19.1"
   confetti:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: confetti
       sha256: "979aafde2428c53947892c95eb244466c109c129b7eee9011f0a66caaca52267"

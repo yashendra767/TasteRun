@@ -128,7 +128,7 @@ class _MenuScreenState extends State<MenuScreen> {
 
 class _MenuItemCard extends StatelessWidget {
   final MenuItem item;
-  const _MenuItemCard({required this.item, super.key});
+  const _MenuItemCard({required this.item});
 
   @override
   Widget build(BuildContext context) {

@@ -4,6 +4,7 @@ import 'package:food_delivery_app/domain/repository/restaurant_repository_interf
 import '../../data/models/restaurant.dart';
 import '../../core/errors/failures.dart';
 import 'menu_screen.dart';
+import 'order_history_screen.dart';
 
 class RestaurantListScreen extends StatefulWidget {
   const RestaurantListScreen({super.key});
@@ -22,11 +23,30 @@ class _RestaurantListScreenState extends State<RestaurantListScreen> {
     _futureRestaurants = repo.fetchRestaurants();
   }
 
+  void _openOrderHistory() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => const OrderHistoryScreen()),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Restaurants", style: TextStyle(shadows: [Shadow(color: Colors.black, blurRadius: 2.0)]),),
-      centerTitle: true,),
+      appBar: AppBar(
+        title: const Text(
+          "Restaurants",
+          style: TextStyle(shadows: [Shadow(color: Colors.black, blurRadius: 2.0)]),
+        ),
+        centerTitle: true,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.history),
+            tooltip: 'Order History',
+            onPressed: _openOrderHistory,
+          ),
+        ],
+      ),
       body: FutureBuilder<List<Restaurant>>(
         future: _futureRestaurants,
         builder: (context, snapshot) {
@@ -129,3 +149,4 @@ class _RestaurantListScreenState extends State<RestaurantListScreen> {
     );
   }
 }
+
