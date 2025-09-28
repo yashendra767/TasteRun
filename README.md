@@ -35,20 +35,31 @@
 
 ## Screens
 
-1. **Restaurant List Screen** ![Restaurant List](https://github.com/user-attachments/assets/91415e28-17be-4a30-bab1-5fed57c97196)
+### 🍴 Restaurant Flow  
+| Restaurant List | Menu Screen |
+|-----------------|-------------|
+| <img src="https://github.com/user-attachments/assets/91415e28-17be-4a30-bab1-5fed57c97196" alt="Restaurant List" width="250"/> | <img src="https://github.com/user-attachments/assets/6d754d4b-aad9-469e-8bd9-3a187971684a" alt="Menu Screen" width="250"/> |
 
-2. **Menu Screen** ![Menu Screen](https://github.com/user-attachments/assets/6d754d4b-aad9-469e-8bd9-3a187971684a)
+---
 
-3. **Cart Screen** ![Cart Screen](https://github.com/user-attachments/assets/aaabf5b8-1f80-4dff-a58b-ff82d39ed35f)
+### 🛒 Cart & Checkout  
+| Cart Screen | Checkout Screen |
+|-------------|-----------------|
+| <img src="https://github.com/user-attachments/assets/aaabf5b8-1f80-4dff-a58b-ff82d39ed35f" alt="Cart Screen" width="250"/> | <img src="https://github.com/user-attachments/assets/f2ba32eb-d2ab-4191-896d-3dfc6c8e3acb" alt="Checkout Screen" width="250"/> |
 
-4. **Checkout Screen** ![Checkout Screen](https://github.com/user-attachments/assets/f2ba32eb-d2ab-4191-896d-3dfc6c8e3acb)
+---
 
-5. **Payment Screen** ![Payment Screen](https://github.com/user-attachments/assets/8eb9e1ee-3e0a-404a-9104-54cc5f6417a5)
+### 💳 Payment Flow  
+| Payment Screen | Order Confirmation |
+|----------------|--------------------|
+| <img src="https://github.com/user-attachments/assets/8eb9e1ee-3e0a-404a-9104-54cc5f6417a5" alt="Payment Screen" width="250"/> | <img src="https://github.com/user-attachments/assets/03e6194e-06ee-4521-8b33-425f66880669" alt="Order Confirmation Screen" width="250"/> |
 
-6. **Order Confirmation Screen** ![Order Confirmation](https://github.com/user-attachments/assets/03e6194e-06ee-4521-8b33-425f66880669)
+---
 
-7. **Order History (Demo)** ![Order History](https://github.com/user-attachments/assets/6d38aaac-40be-4fd7-b59a-78a96acf4786)
-
+### 📖 Order History  
+| Order History (Demo) |
+|----------------------|
+| <img src="https://github.com/user-attachments/assets/6d38aaac-40be-4fd7-b59a-78a96acf4786" alt="Order History" width="250"/> |
 
 ---
 
